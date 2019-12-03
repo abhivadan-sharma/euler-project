@@ -2,4 +2,4 @@
 
 import numpy as np
 a = 5
-print (a)
+print (a+5)
