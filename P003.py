@@ -64,3 +64,8 @@ def get_prime_factors(n):
 
 smallest_prime_factor(600851475143)
 get_prime_factors(600851475143)
+
+
+
+
+
