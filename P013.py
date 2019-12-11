@@ -209,6 +209,8 @@ numlist_str = num_raw.replace("\n"," ")
 numlist = [i for i in numlist_str.split()]
 
 
+# Solution 1: Perform the digit calculation in a loop
+
 curr_num_balance = 0
 str_digits = ""
 for j in range(49, -1, -1):
@@ -232,3 +234,40 @@ for j in range(49, -1, -1):
 
 ans = str(curr_num_balance) + str_digits[::-1]
 print(ans[0:10])
+
+
+# Solution 2: A function to perform digit sum of two strings
+
+def digit_sum(str1, str2):
+
+	str1 = ((max(len(str1), len(str2)) - len(str1)) * '0') + str1
+	str2 = ((max(len(str1), len(str2)) - len(str2)) * '0') + str2
+
+	digit_str = ''
+	curr_balance = 0
+	for j in range(len(str1)-1,-1,-1):
+		curr_num = curr_balance + int(str1[j]) + int(str2[j])  # Add the balance from previous iteration
+		if curr_num < 10: # For single digit
+			curr_digit = str(curr_num)
+			curr_balance = 0
+		else:
+			curr_digit = str(curr_num)[-1]  # Last digit
+			curr_balance = int(str(curr_num)[0:-1])  # Stuff before the last digit
+		digit_str = digit_str + curr_digit  # Add to string
+		# print(curr_balance, curr_digit)
+	ans = str(curr_balance) + digit_str[::-1]  # Take the last balance, add the digit string in reverse order
+	return str(int(ans))  # To remove any leading zeroes
+
+
+digit_sum('123', '34')
+digit_sum('123', '170')
+digit_sum('999', '999')
+digit_sum('3710728753', '4637693767')
+
+for i in range(len(numlist)):
+	curr_num = numlist[i]
+	if i == 0:
+		curr_sum = curr_num
+	else:
+		curr_sum = digit_sum(curr_sum, curr_num)
+print(curr_sum)
